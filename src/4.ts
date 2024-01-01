@@ -6,7 +6,7 @@ class Key {
     }
 }
 class Person {
-    constructor(private key: Key) { }
+   constructor(public name: string, private key: Key) { }
 
     getKey(): Key {
         return this.key;
@@ -19,9 +19,12 @@ abstract class House {
     
     comeIn(person: Person): void {
         if (this.door) {
-            this.tenants.push(person);
-        } 
-    }
+          this.tenants.push(person);
+          console.log(`Welcome ${person.name}! Door open!`);
+        } else {
+             console.log("Door closed");
+         }
+    }     
     
     abstract openDoor(key: Key): void;
 }
@@ -35,8 +38,9 @@ class MyHouse extends House {
 
 const key = new Key();
 const house = new MyHouse(key);
-const person = new Person(key);
-const person1 = new Person(new Key());
+const person = new Person('Merlin', key);
+const person1 = new Person('Anna', new Key());
+
 
 house.openDoor(key);
 house.comeIn(person);
